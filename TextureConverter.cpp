@@ -11,11 +11,13 @@ void TextureConverter::ConvertTextureWICToDDS(const std::string& filepath)
 
 void TextureConverter::LoadWICTextureFromFile(const std::string& filepath)
 {
+	HRESULT result;
 	//ファイルパスをワイド文字列に変換
 	std::wstring wfilePath = ConvertMultiByteStringToWideString(filepath);
 
-	//②テクスチャを読み込む
-
+	//WICテクスチャのロード
+	result = LoadFromWICFile(wfilePath.c_str(), WIC_FLAGS_NONE, &metadata_, scratchImage_);
+	assert(SUCCEEDED(result));
 }
 
 std::wstring TextureConverter::ConvertMultiByteStringToWideString(const std::string& mString)

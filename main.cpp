@@ -1,7 +1,5 @@
 #include<cstdio>
 #include<cstdlib>
-#include<DirectXTex.h>
-#include<cassert>
 #include"TextureConverter.h"
 
 

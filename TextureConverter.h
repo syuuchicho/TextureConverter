@@ -1,10 +1,8 @@
 #pragma once
-
 #include<string>
-#include <windows.h>
+#include<DirectXTex.h>
 
-
-
+using namespace DirectX;
 using namespace std;
 
 class TextureConverter
@@ -23,7 +21,12 @@ private:
 	/// <param name="filepath">ファイルパス</param>
 	void LoadWICTextureFromFile(const std::string& filepath);
 
+	//マルチバイト文字列からワイド文字列
 	static std::wstring ConvertMultiByteStringToWideString(const std::string& mString);
 
+	//画像の情報
+	DirectX::TexMetadata metadata_;
+	//画像イメージのコンテナ
+	DirectX::ScratchImage scratchImage_;
 };
 
