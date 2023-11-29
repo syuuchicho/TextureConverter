@@ -4,7 +4,6 @@ void TextureConverter::ConvertTextureWICToDDS(const std::string& filepath)
 {
 	//テクスチャファイルを読み込む
 	LoadWICTextureFromFile(filepath);
-
 	//②DDS形式に変換して書き出す
 	SaveDDSTextureToFile();
 }

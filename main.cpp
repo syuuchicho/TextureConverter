@@ -2,8 +2,6 @@
 #include<cstdlib>
 #include"TextureConverter.h"
 
-
-
 //コマンドライン引数
 enum Argument
 {
@@ -29,6 +27,6 @@ int main(int argc, char* argv[]) {
 	//COMライブラリを終了
 	CoUninitialize();
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
