@@ -1,11 +1,20 @@
 #include "TextureConverter.h"
 
-void TextureConverter::ConvertTextureWICToDDS(const std::string& filepath)
+void TextureConverter::OutputUsage()
+{
+	printf("画像ファイルをWIC形式からDDS形式に変換します。\n");
+	printf("\n");//空白行
+	printf("TextureConverter[ドライブ:][パス][ファイル名]\n");
+	printf("\n");//空白行
+	printf("[ドライブ:][パス][ファイル名]: 変換したいWIC形式の画像ファイルを指定します\n");
+}
+
+void TextureConverter::ConvertTextureWICToDDS(const std::string& filepath, int numOptions = 0, char* options[] = nullptr)
 {
 	//テクスチャファイルを読み込む
 	LoadWICTextureFromFile(filepath);
 	//②DDS形式に変換して書き出す
-	SaveDDSTextureToFile();
+	SaveDDSTextureToFile(numOptions,options);
 }
 
 void TextureConverter::LoadWICTextureFromFile(const std::string& filepath)
@@ -32,7 +41,7 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	pos1 = filePath.rfind('.');
 
 	//検索がヒットしたら
-	if (pos1!=std::wstring::npos)
+	if (pos1 != std::wstring::npos)
 	{
 		//区切り文字の後ろをファイル拡張子として保存
 		fileExt_ = filePath.substr(pos1 + 1, filePath.size() - pos1 - 1);
@@ -46,7 +55,7 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	}
 	//区切り文字'\\'が出てくる一番最後の部分を検索
 	pos1 = exceptExt.rfind('\\');
-	if (pos1!=std::wstring::npos)
+	if (pos1 != std::wstring::npos)
 	{
 		//区切り文字の前までをディレクトリパスとしても保存
 		directoryPath_ = exceptExt.substr(0, pos1 + 1);
@@ -69,7 +78,7 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	fileName_ = exceptExt;
 }
 
-void TextureConverter::SaveDDSTextureToFile()
+void TextureConverter::SaveDDSTextureToFile(int numOptions, char* options[])
 {
 	HRESULT result;
 	ScratchImage mipChain;
@@ -120,7 +129,7 @@ std::wstring TextureConverter::ConvertMultiByteStringToWideString(const std::str
 {
 	//ワイド文字列に変換した際の文字数を計算
 	int filePathBufferSize = MultiByteToWideChar(CP_ACP, 0, mString.c_str(), -1, nullptr, 0);
-	
+
 	//ワイド文字列
 	std::wstring wString;
 	wString.resize(filePathBufferSize);
